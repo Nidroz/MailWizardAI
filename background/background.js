@@ -12,8 +12,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true;
     }
     if (request.action === 'getHistory') {
-        getHistory(request.data)
-          .then(response => sendResponse({ success: true, history }))
+        getHistory()
+          .then(response => sendResponse({ success: true, history: response }))
           .catch(error => sendResponse({ success: false, error: error.message }));
         return true;
     }
@@ -22,7 +22,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 async function handleGenerateResponse({ emailContent, tone, instructions }) {
     try {
         const apiKey = await chrome.storage.sync.get(['geminiApiKey']);
-        if (!apiKey) {
+        const geminiApiKey = apiKey.geminiApiKey;
+        if (!geminiApiKey) {
             return { success: false, error: "GeminiApiKey not configured. Please configure it in the extension settings." }
         }
         const prompt = buildPrompt(emailContent, tone, instructions);
@@ -51,7 +52,7 @@ async function handleGenerateResponse({ emailContent, tone, instructions }) {
         }
 
         const data = await response.json();
-        const generatedText = data.contents[0].parts[0].text.trim();
+        const generatedText = data.candidates[0].content.parts[0].text.trim();
         await saveToHistory({
             text: generatedText,
             tone: tone,
@@ -95,7 +96,7 @@ async function buildPrompt(emailContent, tone, instructions) {
     return prompt;
 }
 
-async function saveToHistory() {
+async function saveToHistory(data) {
     try {
         const { history = [] } = await chrome.storage.local.get(['history']);
         const updatedHistory = [data, ...history].slice(0, 10);

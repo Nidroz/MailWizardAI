@@ -9,18 +9,16 @@ class MailWizardPopup {
     }
 
     async init() {
-        if (typeof chrome === 'undefined' || !chrome.runtime) {
-            console.error("Chrome runtime not available yet, retrying...");
-            setTimeout(() => this.init(), 100);
-            return;
-        }
+        // if (typeof chrome === 'undefined' || !chrome.runtime) {
+        //     console.error("Chrome runtime not available yet, retrying...");
+        //     setTimeout(() => this.init(), 100);
+        //     return;
+        // }
         await this.loadApiKey();
         this.setupTabs();
         this.setupGenerateTab();
-        // this.setupHistoryTab();  // sert à rien, on peut utiliser loadHistory directement
         this.setupSettingsTab();
         await this.loadHistory();
-        // this.checkAutoGenerate();   // if opened from floating button
         console.log("MailWizardAI popup initialized");
     }
 
@@ -32,11 +30,9 @@ class MailWizardPopup {
                 this.switchTab(tabName);
             });
         });
-        console.log("Tabs setup complete");
     }
 
     switchTab(tabName) {
-        console.log(`Switching to tab: ${tabName}`);
         // update tab buttons
         document.querySelectorAll('.tab').forEach(tab => {
             tab.classList.toggle('active', tab.dataset.tab === tabName);
@@ -68,8 +64,19 @@ class MailWizardPopup {
         try {
             console.log("RUNTIME", chrome.runtime);
             const result = await chrome.runtime.sendMessage({ action: "getHistory" });
-            if (result.success && result.history.length > 0) {
+            if (result.success && result.history && result.history.length > 0) {
                 this.displayHistory(result.history);
+            } else {
+                const historyList = document.getElementById('history-list');
+                historyList.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        <p>No history found yet</p>
+                        <small>Your generated answers will appear here</small>
+                    </div>
+                `;
             }
         } catch (error) {
             console.error("Error loading history:", error);
@@ -101,6 +108,17 @@ class MailWizardPopup {
             });
             historyList.appendChild(historyItem);
         });
+    }
+
+    getToneName(tone) {
+        const toneNames = {
+            'normal': 'Normal',
+            'professional': 'Professional',
+            'friendly': 'Friendly',
+            'formal': 'Formal',
+            'academic': 'Academic'
+        };
+        return toneNames[tone] || 'Normal';
     }
 
     showHistoryItem(item) {
@@ -136,11 +154,11 @@ class MailWizardPopup {
             });
             document.getElementById('loading-state').style.display = 'none';
 
-            if (result.success && result.response) {
+            if (result.success && result.text) {
                 this.currentResponse = result.text;
                 this.showResult(result.text);
             } else {
-                alert("Error: " + result.error);
+                alert("Error: " + (result.error || "Unknown error"));
             }
         } catch (error) {
             document.getElementById('response-text').style.display = "none";
@@ -150,7 +168,7 @@ class MailWizardPopup {
 
     showResult(text) {
         document.getElementById('response-text').textContent = text;
-        document.getElementById('response-container').style.display = "block";
+        document.getElementById('result-container').style.display = "block";
     }
 
     async copyResponse() {
@@ -173,7 +191,7 @@ class MailWizardPopup {
         }, 2000);
 
         } catch (error) {
-            alert('❌ Erreur lors de la copie: ' + error.message);
+            alert('Error copying: ' + error.message);
         }
     }
 
@@ -246,7 +264,7 @@ class MailWizardPopup {
     async saveApiKey() {
         const apiKey = document.getElementById('api-key-input').value.trim();
         if (!apiKey) {
-            alert('Enter a valid API key please');
+            alert('Please enter a valid API key');
             return;
         }
         try {
@@ -254,14 +272,14 @@ class MailWizardPopup {
             this.updateApiStatus(true);
             
             const button = document.getElementById('save-api-key-button');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = `
+            const originalHTML = button.innerHTML;
+            button.innerHTML = `
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 Saved !
             `;
-            btn.style.background = '#10B981';
+            button.style.background = '#10B981';
             setTimeout(() => {
                 button.innerHTML = originalHTML;
                 button.style.background = "";
@@ -278,25 +296,10 @@ class MailWizardPopup {
         try {
             await chrome.storage.local.set({ history: [] });
             await this.loadHistory();
-            document.getElementById('history-list').innerHTML = `
-                <div class="empty-state">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                </svg>
-                <p>None history found yet</p>
-                <small>Your generated answers will appear here</small>
-                </div>
-            `;
-            alert('✓ Deleted History');
+            alert('✓ History cleared');
         } catch (error) {
-            alert('❌ Erreur: ' + error.message);
+            alert('Error: ' + error.message);
         }
-    }
-
-    // TODO: check if should auto-generate (from floating button)
-    async checkAutoGenerate() {
-        // for now, we don't auto-generate
-        // user needs to click the button explicitly
     }
 }
 
