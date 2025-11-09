@@ -67,27 +67,27 @@ async function handleGenerateResponse({ emailContent, tone, instructions }) {
 }
 
 async function buildPrompt(emailContent, tone, instructions) {
-    let toneDescritpion = "";
+    let toneDescription = "";
     switch (tone) {
         case 'professional':
-            toneDescritpion = "a professional and formal tone";
+            toneDescription = "a professional and formal tone";
             break;
         case 'friendly':
-            toneDescritpion = "a friendly and casual tone";
+            toneDescription = "a friendly and casual tone";
             break;
         case 'formal':
-            toneDescritpion = "a formal and respectful tone";
+            toneDescription = "a formal and respectful tone";
             break;
         case 'academic':
-            toneDescritpion = "an academic and scholarly tone";
+            toneDescription = "an academic and scholarly tone";
             break;
         default:
-            toneDescritpion = "a neutral tone";
+            toneDescription = "a neutral tone";
             break;
     }
 
     let prompt = `I need to reply to the following email:\n\n"${emailContent}"\n\n
-        Please draft a response using ${toneDescritpion}.`;
+        Please draft a response using ${toneDescription}.`;
     if (instructions) {
         prompt += ` Additionally, please follow these instructions: ${instructions}.\n\n`;
     }

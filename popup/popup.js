@@ -5,15 +5,10 @@ class MailWizardPopup {
     constructor() {
         this.currentTab = "generate";
         this.currentResponse = "";
-        this.init();
+        //this.init();
     }
 
     async init() {
-        // if (typeof chrome === 'undefined' || !chrome.runtime) {
-        //     console.error("Chrome runtime not available yet, retrying...");
-        //     setTimeout(() => this.init(), 100);
-        //     return;
-        // }
         await this.loadApiKey();
         this.setupTabs();
         this.setupGenerateTab();
@@ -154,9 +149,9 @@ class MailWizardPopup {
             });
             document.getElementById('loading-state').style.display = 'none';
 
-            if (result.success && result.text) {
-                this.currentResponse = result.text;
-                this.showResult(result.text);
+            if (result.success && result.data) {
+                this.currentResponse = result.data;
+                this.showResult(result.data);
             } else {
                 alert("Error: " + (result.error || "Unknown error"));
             }
@@ -250,14 +245,14 @@ class MailWizardPopup {
 
     updateApiStatus(isApiSet) {
         const statusText = document.getElementById('status-text');
-        const helpText = document.getElementById('help-text');
+        const apiStatus = document.getElementById('api-status');
         if (isApiSet) {
             statusText.textContent = "✓ API Key Set";
-            helpText.classList.add("success");
-            helpText.classList.remove("error");
+            apiStatus.classList.add("success");
+            apiStatus.classList.remove("error");
         } else {
             statusText.textContent = "✗ API Key Not Set";
-            helpText.classList.remove("success");
+            apiStatus.classList.remove("success");
         }
     }
 
@@ -303,6 +298,28 @@ class MailWizardPopup {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new MailWizardPopup();
-});
+
+
+let popup = null;
+
+function initPopup() {
+    // console.log("=== INIT DEBUG ===");
+    // console.log("typeof chrome:", typeof chrome);
+    // console.log("chrome:", chrome);
+    // console.log("chrome.runtime:", chrome?.runtime);
+    // console.log("chrome.storage:", chrome?.storage);
+    // console.log("==================");
+    
+    popup = new MailWizardPopup();
+    popup.init();
+}
+
+// Triple vérification
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPopup);
+} else if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    // Attendre un peu pour être sûr
+    setTimeout(initPopup, 50);
+} else {
+    initPopup();
+}
