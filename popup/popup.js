@@ -131,16 +131,28 @@ class MailWizardPopup {
         try {
             const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
             const activeTab = tabs[0];
-            if (!activeTab.url.includes('mail.google.com') && !activeTab.url.includes('outlook.office.com/mail')) {
-                throw new Error("This extension only works on Gmail and Outlook web interfaces.");
+            let emailContent = "";
+            // try to get email content from Gmail/Outlook
+            if (activeTab.url.includes('mail.google.com') || activeTab.url.includes('outlook.office.com/mail')) {
+                try {
+                    const response = await chrome.tabs.sendMessage(activeTab.id, {
+                        action: "getEmailContent",
+                    });
+                    if (response.success && response.content) {
+                        emailContent = response.content;
+                    }
+                } catch (error) {
+                    console.log("Could not extract email from page:", error);
+                }
             }
-            const response = await chrome.tabs.sendMessage(activeTab.id, {
-                action: "getEmailContent",
-            });
-            if (!response.success || !response.content) {
-                throw new Error("Failed to retrieve email content from the page. Try to open an email.");
+            // if no email content extracted, ask user to provide it
+            if (!emailContent) {
+                emailContent = prompt("Paste the email content you want to reply to:");
+                if (!emailContent) {
+                    throw new Error("No email content provided.");
+                }
             }
-            const emailContent = response.content;
+
             const result = await chrome.runtime.sendMessage({
                 action: "generateResponse",
                 emailContent: emailContent,

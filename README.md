@@ -1,8 +1,8 @@
 # MailWizard 🧙‍♂️
 
-**Générez des réponses magiques à vos emails avec l'IA (100% gratuit)**
+**Generate magical AI-powered email responses (100% free)**
 
-Une extension Chrome qui vous aide à rédiger des réponses intelligentes à vos emails Gmail en utilisant Google Gemini - totalement gratuit, aucune carte bancaire requise !
+A Chrome extension that helps you write intelligent email replies using Google Gemini - completely free, no credit card required!
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
@@ -10,264 +10,275 @@ Une extension Chrome qui vous aide à rédiger des réponses intelligentes à vo
 
 ---
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-- 🎯 **Intégration Gmail directe** - Bouton flottant + popup accessible
-- ⚡ **Génération automatique** - Cliquez et votre réponse est générée
-- 🎨 **5 tons disponibles** - Normal, Professionnel, Amical, Formel, Académique
-- 🔄 **Régénération facile** - Changez le ton et régénérez instantanément
-- 📋 **Copier en un clic** - Copiez la réponse dans votre presse-papier
-- ✅ **Insertion automatique** - Collez directement dans Gmail
-- 📚 **Historique** - Retrouvez vos réponses précédentes
-- 🆓 **100% Gratuit** - Utilise Google Gemini (pas de carte bancaire)
-- 🔒 **Sécurisé** - Votre clé API reste sur votre machine
+- 🎯 **Direct Gmail integration** - Floating button + accessible popup
+- ⚡ **Automatic generation** - Click and your response is generated
+- 🎨 **5 tones available** - Normal, Professional, Friendly, Formal, Academic
+- 🔄 **Easy regeneration** - Change tone and regenerate instantly
+- 📋 **One-click copy** - Copy response to clipboard
+- ✅ **Auto-insert** - Paste directly into Gmail
+- 📚 **History** - Access your previous responses
+- 🆓 **100% Free** - Uses Google Gemini (no credit card)
+- 🔒 **Secure** - Your API key stays on your machine
+- 🌐 **Flexible** - Works from any tab with manual paste option
 
 ---
 
 ## 🚀 Installation
 
-### Étape 1 : Installer l'extension
+### Step 1: Install the extension
 
-1. **Téléchargez** le dossier `MailWizardAI`
+1. **Download** the `MailWizard` folder
 
-2. **Ouvrez Chrome** et allez sur :
+2. **Open Chrome** and navigate to:
    ```
    chrome://extensions/
    ```
 
-3. **Activez le "Mode développeur"** (coin supérieur droit)
+3. **Enable "Developer mode"** (top right corner)
 
-4. **Cliquez sur "Charger l'extension non empaquetée"**
+4. **Click "Load unpacked"**
 
-5. **Sélectionnez le dossier** `MailWizardAI`
+5. **Select the folder** `MailWizard`
 
-6. ✅ L'extension est installée ! L'icône apparaît dans Chrome.
+6. ✅ Extension installed! The icon appears in Chrome.
 
-### Étape 2 : Obtenir votre clé API Gemini (gratuit)
+### Step 2: Get your Gemini API key (free)
 
-1. Allez sur **[Google AI Studio](https://makersuite.google.com/app/apikey)**
+1. Go to **[Google AI Studio](https://makersuite.google.com/app/apikey)**
 
-2. Connectez-vous avec votre compte Google
+2. Sign in with your Google account
 
-3. Cliquez sur **"Create API Key"** (ou "Get API Key")
+3. Click **"Create API Key"** (or "Get API Key")
 
-4. **Copiez la clé** générée
+4. **Copy the generated key**
 
-5. **Dans l'extension** :
-   - Cliquez sur l'icône MailWizard
-   - Allez dans l'onglet "Réglages"
-   - Collez votre clé API
-   - Cliquez sur "Sauvegarder la clé"
+5. **In the extension**:
+   - Click the MailWizard icon
+   - Go to "Settings" tab
+   - Paste your API key
+   - Click "Save Key"
 
-🎉 **C'est tout ! Vous êtes prêt !**
+🎉 **That's it! You're ready to go!**
 
 ---
 
-## 💡 Utilisation
+## 💡 Usage
 
-### Méthode 1 : Via le bouton flottant (le plus rapide)
+### Method 1: Via floating button (fastest)
 
-1. **Ouvrez un email** dans Gmail
-2. **Cliquez sur le bouton flottant** "Répondre avec MailWizard" (en bas à droite)
-3. **La popup s'ouvre** - cliquez sur "Générer une réponse magique"
-4. **Choisissez une action** :
-   - 🔄 **Régénérer** - Changez le ton ou ajoutez des instructions
-   - 📋 **Copier** - Copie dans le presse-papier
-   - ✅ **Coller dans Gmail** - Insère automatiquement la réponse
+1. **Open an email** in Gmail
+2. **Click the floating button** "Answer with MailWizard" (bottom right)
+3. **Popup opens** - click "Generate Magical Answer"
+4. **Choose an action**:
+   - 🔄 **Regenerate** - Change tone or add instructions
+   - 📋 **Copy** - Copy to clipboard
+   - ✅ **Paste to Gmail** - Auto-insert the response
 
-### Méthode 2 : Via l'icône de l'extension
+### Method 2: Via extension icon
 
-1. **Ouvrez un email** dans Gmail
-2. **Cliquez sur l'icône MailWizard** dans Chrome
-3. Dans la popup, cliquez sur **"Générer une réponse magique"**
-4. Utilisez les boutons **Régénérer / Copier / Coller**
+1. **Open an email** in Gmail
+2. **Click the MailWizard icon** in Chrome
+3. In the popup, click **"Generate Magical Answer"**
+4. Use **Regenerate / Copy / Paste** buttons
 
-### Personnaliser la réponse
+### Method 3: Manual mode (from any tab)
 
-#### Changer le ton
-- **Normal** - Ton neutre et poli (par défaut)
-- **Professionnel** - Formel et business
-- **Amical** - Chaleureux et décontracté
-- **Formel** - Très respectueux et officiel
-- **Académique** - Précis et universitaire
+1. **Copy the email content** you want to reply to
+2. **Click the MailWizard icon** from any Chrome tab
+3. Click **"Generate Magical Answer"**
+4. **Paste the email content** when prompted
+5. Get your AI-generated response!
 
-#### Ajouter des instructions
-Dans le champ "Instructions", vous pouvez ajouter :
-- "Mentionner ma disponibilité mardi"
-- "Rester bref, max 3 phrases"
-- "Proposer un rendez-vous téléphonique"
+### Customize the response
+
+#### Change the tone
+- **Normal** - Neutral and polite (default)
+- **Professional** - Formal and business-like
+- **Friendly** - Warm and casual
+- **Formal** - Very respectful and official
+- **Academic** - Precise and scholarly
+
+#### Add instructions
+In the "Instructions" field, you can add:
+- "Mention my availability on Tuesday"
+- "Keep it brief, max 3 sentences"
+- "Suggest a phone call"
 - etc.
 
 ---
 
-## 📚 Onglets de la popup
+## 📚 Popup tabs
 
-### 🎨 Générer (principal)
-- Sélecteur de ton
-- Champ instructions optionnel
-- Bouton de génération
-- Résultat avec actions (Régénérer/Copier/Coller)
+### 🎨 Generate (main)
+- Tone selector
+- Optional instructions field
+- Generation button
+- Result with actions (Regenerate/Copy/Paste)
 
-### 🕐 Historique
-- Liste des 50 dernières réponses générées
-- Affichage minimaliste (2 premières lignes)
-- Clic pour voir la réponse complète
-- Filtre par ton et date
+### 🕐 History
+- List of last 10 generated responses
+- Minimalist display (first 2 lines)
+- Click to view full response
+- Filter by tone and date
 
-### ⚙️ Réglages
-- Configuration de la clé API Gemini
-- Guide d'obtention de la clé
-- Effacer l'historique
-- Informations sur la version
-
----
-
-## 🎯 Cas d'usage
-
-### 📧 Email professionnel
-```
-Email reçu: "Bonjour, j'aimerais discuter du projet..."
-Ton: Professionnel
-Résultat: Réponse formelle et structurée
-```
-
-### 🤝 Email amical
-```
-Email reçu: "Salut ! Ça te dit un café ?"
-Ton: Amical
-Résultat: Réponse chaleureuse et décontractée
-```
-
-### 🎓 Email académique
-```
-Email reçu: "Professeur, concernant le mémoire..."
-Ton: Académique
-Résultat: Réponse précise et respectueuse
-```
+### ⚙️ Settings
+- Gemini API key configuration
+- Key obtaining guide
+- Clear history
+- Version information
 
 ---
 
-## 🔧 Structure du projet
+## 🎯 Use cases
+
+### 📧 Professional email
+```
+Received: "Hello, I'd like to discuss the project..."
+Tone: Professional
+Result: Formal and structured response
+```
+
+### 🤝 Friendly email
+```
+Received: "Hey! Want to grab coffee?"
+Tone: Friendly
+Result: Warm and casual response
+```
+
+### 🎓 Academic email
+```
+Received: "Professor, regarding the thesis..."
+Tone: Academic
+Result: Precise and respectful response
+```
+
+---
+
+## 🔧 Project structure
 
 ```
-MailWizardAI/
-├── manifest.json           # Configuration de l'extension
+MailWizard/
+├── manifest.json           # extension configuration
 ├── background/
-│   └── background.js       # Service worker (API Gemini)
+│   └── background.js       # service worker (Gemini API)
 ├── content/
-│   └── content.js          # Injection dans Gmail
-├── styles/
-│   └── content.css         # Styles des éléments injectés
+│   ├── content.js          # Gmail/Outlook injection
+│   └── content.css         # injected elements styles
 ├── popup/
-│   ├── popup.html          # Interface de la popup
-│   ├── popup.css           # Styles de la popup
-│   └── popup.js            # Logique de la popup
-├── icons/                  # Icônes (16, 32, 48, 128px)
-└── README.md               # Ce fichier
+│   ├── popup.html          # popup interface
+│   ├── popup.css           # popup styles
+│   └── popup.js            # popup logic
+├── icons/                  # icons (16, 32, 48, 128px)
+└── README.md               # this file
 ```
 
 ---
 
-## 💰 Coûts et limites
+## 💰 Costs and limits
 
-### Google Gemini (gratuit)
-- ✅ **100% gratuit**
-- ✅ **Pas de carte bancaire**
-- ✅ **60 requêtes par minute**
-- ✅ **Qualité excellente**
+### Google Gemini (free tier)
+- ✅ **100% free**
+- ✅ **No credit card required**
+- ✅ **60 requests per minute**
+- ✅ **Excellent quality**
 
-Pour un usage normal (10-20 emails/jour), vous êtes largement dans les limites gratuites !
+For normal usage (10-20 emails/day), you're well within the free limits!
 
 ---
 
-## 🛠️ Développement
+## 🛠️ Development
 
-### Technologies utilisées
-- **Manifest V3** (dernière version Chrome)
-- **Google Gemini Pro API** (IA gratuite)
-- **Vanilla JavaScript** (pas de framework)
-- **CSS moderne** (gradients, animations)
+### Technologies used
+- **Manifest V3** (latest Chrome version)
+- **Google Gemini 2.5-flash API** (free AI)
+- **Vanilla JavaScript** (no framework)
+- **Modern CSS** (gradients, animations)
 
-### Modifier l'extension
+### Modify the extension
 
-1. **Changer les tons** : Modifier `background/background.js` dans la fonction `buildPrompt()`
-2. **Personnaliser le style** : Modifier `popup/popup.css` ou `styles/content.css`
-3. **Ajouter des fonctionnalités** : Modifier `popup/popup.js` ou `content/content.js`
+1. **Change tones**: Edit `background/background.js` in the `buildPrompt()` function
+2. **Customize style**: Edit `popup/popup.css` or `content/content.css`
+3. **Add features**: Edit `popup/popup.js` or `content/content.js`
 
-### Rechargement après modifications
+### Reload after modifications
 
-1. Allez sur `chrome://extensions/`
-2. Cliquez sur l'icône de rechargement (🔄)
-3. Rechargez Gmail pour voir les changements
+1. Go to `chrome://extensions/`
+2. Click the reload icon (🔄)
+3. Reload Gmail to see changes
 
 ---
 
 ## ❓ FAQ
 
-### L'extension ne fonctionne pas
-- ✅ Vérifiez que vous êtes sur `mail.google.com`
-- ✅ Vérifiez que vous avez configuré la clé API
-- ✅ Rechargez la page Gmail
-- ✅ Ouvrez un email avant de cliquer sur MailWizard
+### The extension doesn't work
+- ✅ Check you're on `mail.google.com`
+- ✅ Verify your API key is configured
+- ✅ Reload the Gmail page
+- ✅ Open an email before clicking MailWizard
 
-### Comment obtenir la clé API ?
-Suivez le guide dans l'onglet "Réglages" de la popup ou allez sur [Google AI Studio](https://makersuite.google.com/app/apikey)
+### How to get the API key?
+Follow the guide in the "Settings" tab of the popup or go to [Google AI Studio](https://makersuite.google.com/app/apikey)
 
-### La réponse ne correspond pas
-- Changez le ton
-- Ajoutez des instructions spécifiques
-- Régénérez
+### The response doesn't match
+- Change the tone
+- Add specific instructions
+- Regenerate
 
-### Le bouton flottant n'apparaît pas
-- Assurez-vous d'avoir ouvert un email
-- Attendez quelques secondes
-- Rechargez la page
+### The floating button doesn't appear
+- Make sure you've opened an email
+- Wait a few seconds
+- Reload the page
 
-### C'est vraiment gratuit ?
-OUI ! Google Gemini a un tier totalement gratuit sans carte bancaire requise.
+### Is it really free?
+YES! Google Gemini has a completely free tier with no credit card required.
+
+### Outlook support?
+Partial support - automatic extraction may not work reliably on Outlook. Use manual mode (copy/paste) as a fallback.
 
 ---
 
 ## 🔮 Roadmap
 
-### Version 1.1 (à venir)
-- [ ] Support Outlook
-- [ ] Templates personnalisables
-- [ ] Raccourcis clavier
-- [ ] Export de l'historique
+### Version 1.1 (coming soon)
+- [ ] Improved Outlook support
+- [ ] Customizable templates
+- [ ] Keyboard shortcuts
+- [ ] History export
 
-### Version 1.2 (à venir)
-- [ ] Mode sombre
-- [ ] Support multi-langues
-- [ ] Suggestions intelligentes
-- [ ] Statistiques d'utilisation
-
----
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! N'hésitez pas à :
-- Signaler des bugs
-- Proposer des améliorations
-- Contribuer au code
+### Version 1.2 (coming soon)
+- [ ] Dark mode
+- [ ] Multi-language support
+- [ ] Smart suggestions
+- [ ] Usage statistics
 
 ---
 
-## 📄 Licence
+## 🤝 Contributing
 
-Ce projet est sous licence MIT - Libre d'utilisation et de modification.
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest improvements
+- Contribute code
+
+---
+
+## 📄 License
+
+This project is under MIT License - Free to use and modify.
 
 ---
 
 ## 💌 Support
 
-Pour toute question ou problème :
-- Ouvrez une issue sur GitHub
-- Consultez la FAQ ci-dessus
-- Vérifiez que votre clé API est bien configurée
+For any questions or issues:
+- Open an issue on GitHub
+- Check the FAQ above
+- Verify your API key is properly configured
 
 ---
 
-**Créé avec ✨ et un peu de magie**
+**Created with ✨ and a bit of magic**
 
-Profitez de MailWizard pour gagner du temps sur vos emails ! 🧙‍♂️📧
+Enjoy MailWizard to save time on your emails! 🧙‍♂️📧

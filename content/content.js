@@ -1,29 +1,50 @@
 // for content Gmail / Outlook integration
 console.log("MailWizardAI content script loaded");
 
-function waitForGmail() {
+const isGmail = window.location.hostname.includes('mail.google.com');
+const isOutlook = window.location.hostname.includes('outlook.office.com');
+
+function waitForEmail() {
     return new Promise((resolve) => {
-        if (document.querySelector('[role="main"]')) {
+        const checkElement = () => {
+            if (isGmail && document.querySelector('[role="main"]')) {
+                return true;
+            }
+            if (isOutlook && (document.querySelector('[role="main"]') || document.querySelector('.customScrollBar'))) {
+                return true;
+            }
+            return false;
+        };
+
+        if (checkElement()) {
             resolve();
         } else {
             const observer = new MutationObserver(() => {
-                if (document.querySelector('[role="main"]')) {
+                if (checkElement()) {
                     observer.disconnect();
                     resolve();
                 }
             });
-            observer.observe(document.body, { childList: true, subtree: true })
+            observer.observe(document.body, { childList: true, subtree: true });
         }
     });
 }
 
 function extractEmailContent() {
-    const selectors = [
+    const gmailSelectors = [
         '[data-message-id] [dir="ltr"]',
         '.a3s.aiL',
         '.ii.gt',
         '[role="listitem"] [dir="ltr"]'
     ];
+    const outlookSelectors = [
+        '[role="document"]',
+        '.rps_b036',
+        '[aria-label*="Message body"]',
+        '.ReadingPaneContents',
+        '.ElementContent'
+    ];
+    const selectors = isGmail ? gmailSelectors : outlookSelectors;
 
     for (const selector of selectors) {
         const elements = document.querySelectorAll(selector);
@@ -36,6 +57,14 @@ function extractEmailContent() {
         }
     }
     return null;
+}
+
+function insertResponseIntoEmail(text) {
+    if (isGmail) {
+        insertResponseIntoGmail(text);
+    } else if (isOutlook) {
+        insertResponseIntoOutlook(text);
+    }
 }
 
 function insertResponseIntoGmail(text) {
@@ -67,6 +96,36 @@ function insertResponseIntoGmail(text) {
             showNotification('⚠ Impossible to find compose area', 'error');
         }
     }, replyClicked ? 500 : 100);
+}
+
+function insertResponseIntoOutlook(text) {
+    const replyButtons = document.querySelectorAll('[aria-label*="Reply"], [name="Reply"], button');
+    let replyClicked = false;
+
+    for (const button of replyButtons) {
+        const buttonText = button.textContent?.toLowerCase() || button.getAttribute('aria-label')?.toLowerCase() || '';
+        if (buttonText.includes('reply') || buttonText.includes('répondre')) {
+            button.click();
+            replyClicked = true;
+            break;
+        }
+    }
+
+    setTimeout(() => {
+        const composeArea = document.querySelector('[role="textbox"][aria-label*="Message body"]') ||
+            document.querySelector('[contenteditable="true"]') ||
+            document.querySelector('div[aria-label*="Message"]');
+
+        if (composeArea) {
+            composeArea.focus();
+            composeArea.innerText = text;
+            const event = new Event('input', { bubbles: true });
+            composeArea.dispatchEvent(event);
+            showNotification('✓ Response inserted with success!', 'success');
+        } else {
+            showNotification('⚠ Impossible to find compose area', 'error');
+        }
+    }, replyClicked ? 800 : 100);
 }
 
 function showNotification(message, type = 'success') {
@@ -109,15 +168,20 @@ function injectFloatingButton() {
         <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span>Answer avec MailWizard</span>
+        <span>Answer with MailWizard</span>
     `;
     floatingBtn.title = 'Generate Magical Answer';
     
-    floatingBtn.addEventListener('click', (e) => {
+    floatingBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         // open the extension popup instead of sending message
         //chrome.runtime.sendMessage({ action: 'openPopupAndGenerate' });
-        showNotificationhowNotification('📧 Open MailWizard extension to generate an answer', 'info');
+        try {
+            await chrome.runtime.sendMessage({ action: 'openPopup' });
+        } catch (error) {
+            console.log('Could not open popup automatically, user needs to click extension icon');
+            showNotification('📧 Click the MailWizard extension icon to generate an answer', 'info');
+        }
     });
     document.body.appendChild(floatingBtn);
 }
@@ -134,8 +198,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
 });
 
-waitForGmail().then(() => {
-    console.log('MailWizard: Gmail loaded, initializing...');
+waitForEmail().then(() => {
+    const platform = isGmail ? 'Gmail' : isOutlook ? 'Outlook' : 'Email platform';
+    console.log(`MailWizard: ${platform} loaded, initializing...`);
     injectFloatingButton();
     observeEmailChanges();
     setInterval(injectFloatingButton, 2000)
